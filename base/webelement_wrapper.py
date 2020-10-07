@@ -1,4 +1,4 @@
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as condition
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -36,7 +36,7 @@ class Element:
 
     def __wait_to_be_clickable(self):
         wait = WebDriverWait(self.__driver, 6)
-        wait.until(ec.element_to_be_clickable(self.__by, self.__locator))
+        wait.until(condition.element_to_be_clickable((self.__by, self.__locator)))
 
     def get_web_element(self):
         return self.__web_element
