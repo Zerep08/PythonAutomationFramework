@@ -3,8 +3,8 @@ from selenium.webdriver.support import expected_conditions as ec
 from base.webelement_wrapper import Element
 from base.Browser import BrowserDriverFactory
 from Screenshot import Screenshot_Clipping
+from datetime import datetime
 import os
-import random
 
 
 class Driver:
@@ -43,11 +43,12 @@ class Driver:
     def get_web_driver(self):
         return self.__web_driver
 
-    def take_screenshot(self):
+    def take_screenshot(self, image_name):
         path = self.__get_screenshots_folder_path()
-        n = random.randint(0, 1000)
+        now = datetime.now()
+        timestamp = datetime.timestamp(now)
         ss_obj = Screenshot_Clipping.Screenshot()
-        ss_obj.full_Screenshot(self.__web_driver, save_path=path, image_name=f"ss_{n}.png")
+        ss_obj.full_Screenshot(self.__web_driver, save_path=path, image_name=f"{image_name}_{timestamp}.png")
 
     @staticmethod
     def __get_screenshots_folder_path():
