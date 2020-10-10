@@ -1,7 +1,7 @@
 import pytest
 from selenium.webdriver.common.by import By
 from base.webdriver_wrapper import Driver
-from pages.Login import LoginPage
+from pages.login import LoginPage
 
 
 def test_login_page(setup):
