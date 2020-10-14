@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from assertpy import assert_that
 from selenium.webdriver.support.ui import Select
 
 
@@ -49,21 +48,11 @@ class InventoryActions(InventoryPage):
         super().__init__(driver)
         self.driver = driver
 
-    def inventory_page_should_be_displayed(self):
-        assert_that(self.swag_labs_label.displayed).is_equal_to(True)
-        assert_that(self.peek_icon.displayed).is_equal_to(True)
-        assert_that(self.sort_drop_down.displayed).is_equal_to(True)
-        assert_that(self.cart_icon.displayed).is_equal_to(True)
-        assert_that(self.footer.displayed).is_equal_to(True)
-        assert_that(self.product_list).is_not_empty()
-
     def click_on_burger_button(self):
         self.burger_button.click()
         return self
 
-    def left_menu_should_be_displayed(self):
-        assert_that(self.left_menu.displayed).is_equal_to(True)
-
     def select_sort_drop_down(self, text):
         drop_down = Select(self.sort_drop_down.get_web_element())
         drop_down.select_by_visible_text(text)
+        return self
