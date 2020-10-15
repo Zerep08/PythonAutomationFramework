@@ -4,6 +4,7 @@ from base.webelement_wrapper import Element
 from base.Browser import BrowserDriverFactory
 from Screenshot import Screenshot_Clipping
 from datetime import datetime
+from selenium.common.exceptions import TimeoutException
 import os
 
 
@@ -16,9 +17,9 @@ class Driver:
         try:
             element = self.__wait.until(ec.presence_of_element_located((by, locator)))
             return Element(self.__web_driver, element, by, locator)
-        except ValueError:
+        except TimeoutException:
             print(f'Element {locator} not found after 6 seconds')
-            raise ValueError
+            return None
 
     def find_elements(self, by, locator):
         try:
@@ -27,9 +28,9 @@ class Driver:
             for element in results:
                 elements.append(Element(self.__web_driver, element, by, locator))
             return elements
-        except ValueError:
+        except TimeoutException:
             print(f'Element {locator} not found after 6 seconds')
-            raise ValueError
+            return []
 
     def go_to_url(self, url):
         self.__web_driver.get(url)

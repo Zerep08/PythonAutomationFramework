@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+import random
 
 
 class InventoryPage:
@@ -42,6 +43,10 @@ class InventoryPage:
     def left_menu(self):
         return self.driver.find_element(By.XPATH, "//nav[@class='bm-item-list']")
 
+    @property
+    def cart_badge(self):
+        return self.driver.find_element(By.CLASS_NAME, "fa-layers-counter.shopping_cart_badge")
+
 
 class InventoryActions(InventoryPage):
     def __init__(self, driver):
@@ -56,3 +61,17 @@ class InventoryActions(InventoryPage):
         drop_down = Select(self.sort_drop_down.get_web_element())
         drop_down.select_by_visible_text(text)
         return self
+
+    def add_random_product_to_cart(self):
+        product = random.choice(self.product_list)
+        product_name = product.get_web_element().find_element_by_class_name("inventory_item_name").text
+        product_price = product.get_web_element().find_element_by_class_name("inventory_item_price").text
+        add_to_cart_button = product.get_web_element().find_element_by_class_name("btn_primary.btn_inventory")
+        add_to_cart_button.click()
+        return product_name, product_price, add_to_cart_button
+
+    def get_cart_badge_number(self):
+        if self.cart_badge is None:
+            return 0
+        else:
+            return int(self.cart_badge.text)
