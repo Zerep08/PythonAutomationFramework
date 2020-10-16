@@ -1,15 +1,11 @@
 from selenium.webdriver.common.by import By
-from pages.inventory import InventoryActions
-
+from pages.inventory import InventoryPage
 
 
 class LoginPage:
     def __init__(self, driver):
         self.driver = driver
-
-    @property
-    def actions(self):
-        return LoginActions(self.driver)
+        self.actions = LoginActions(self.driver, self)
 
     @property
     def user_name(self):
@@ -28,13 +24,13 @@ class LoginPage:
         return self.driver.find_element(By.XPATH, "//h3[@data-test='error']")
 
 
-class LoginActions(LoginPage):
-    def __init__(self, driver):
-        super().__init__(driver)
+class LoginActions:
+    def __init__(self, driver, login_page):
         self.driver = driver
+        self.login_page = login_page
 
     def login(self, username, password):
-        self.user_name.type_text(username)
-        self.password.type_text(password)
-        self.login_button.click()
-        return InventoryActions(self.driver)
+        self.login_page.user_name.type_text(username)
+        self.login_page.password.type_text(password)
+        self.login_page.login_button.click()
+        return InventoryPage(self.driver)
