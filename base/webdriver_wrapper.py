@@ -19,7 +19,7 @@ class Driver:
             return Element(self.__web_driver, element, by, locator)
         except TimeoutException:
             print(f'Element {locator} not found after 6 seconds')
-            return None
+            return Element(self.__web_driver, None, by, locator)
 
     def find_elements(self, by, locator):
         try:

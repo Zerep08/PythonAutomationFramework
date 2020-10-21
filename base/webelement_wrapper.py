@@ -19,7 +19,10 @@ class Element:
 
     @property
     def displayed(self):
-        return self.__web_element.is_displayed()
+        if self.__web_element is None:
+            return False
+        else:
+            return self.__web_element.is_displayed()
 
     def click(self):
         self.__wait_to_be_clickable()

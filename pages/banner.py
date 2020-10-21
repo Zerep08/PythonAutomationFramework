@@ -41,10 +41,10 @@ class BannerActions:
         self.banner_page.burger_button.click()
 
     def get_cart_badge_number(self):
-        if self.banner_page.cart_badge is None:
-            return 0
-        else:
+        if self.banner_page.cart_badge.displayed:
             return int(self.banner_page.cart_badge.text)
+        else:
+            return 0
 
     def click_on_cart_icon(self):
         self.banner_page.cart_icon.click()

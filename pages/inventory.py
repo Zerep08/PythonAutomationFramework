@@ -50,5 +50,14 @@ class InventoryActions:
 
     def click_on_random_product(self):
         product = random.choice(self.inventory_page.product_list)
-        product.click()
+        image = product.get_web_element().find_element_by_class_name("inventory_item_img")
+        image.click()
+        return InventoryItemPage(self.driver)
+
+    def add_random_product_to_cart_and_open_details(self):
+        product = random.choice(self.inventory_page.product_list)
+        add_to_cart_button = product.get_web_element().find_element_by_class_name("btn_primary.btn_inventory")
+        add_to_cart_button.click()
+        image = product.get_web_element().find_element_by_class_name("inventory_item_img")
+        image.click()
         return InventoryItemPage(self.driver)
